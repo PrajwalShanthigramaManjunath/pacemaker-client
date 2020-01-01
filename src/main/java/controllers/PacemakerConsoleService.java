@@ -22,7 +22,7 @@ import parsers.Parser;
 
 public class PacemakerConsoleService {
 
-    private PacemakerAPI paceApi = new PacemakerAPI("http://localhost:7000");
+    private PacemakerAPI paceApi = new PacemakerAPI("https://dry-ravine-77821.herokuapp.com");
     private Parser console = new AsciiTableParser();
     private User loggedInUser = null;
 
@@ -39,12 +39,12 @@ public class PacemakerConsoleService {
     }
 
     @Command(description = "List Users: List all users emails, first and last names")
-    public void listUsers() {
+    public void getUsers() {
         console.renderUsers(paceApi.getUsers());
     }
 
     @Command(description = "Login: Log in a registered user in to pacemaker")
-    public void login(@Param(name = "email") String email,
+    public void loginUser(@Param(name = "email") String email,
                       @Param(name = "password") String password) {
         Optional<User> user = Optional.fromNullable(paceApi.getUserByEmail(email));
         if (user.isPresent()) {
@@ -86,7 +86,6 @@ public class PacemakerConsoleService {
         }
     }
 
-    // Baseline Commands
 
     @Command(description = "Add location: Append location to an activity")
     public void addLocation(@Param(name = "activity-id") String id,
@@ -170,17 +169,5 @@ public class PacemakerConsoleService {
         }
     }
 
-    @Command(description = "Message Friend: send a message to a friend")
-    public void messageFriend(@Param(name = "email") String email,
-                              @Param(name = "message") String message) {
-        Optional<User> user = Optional.fromNullable(loggedInUser);
-        if (user.isPresent()) {
-//            console.renderUsers(paceApi.deleteFriends(user.get().id));
-        }
-    }
-
-    @Command(description = "List Messages: List all messages for the logged in user")
-    public void listMessages() {
-    }
 
 }
