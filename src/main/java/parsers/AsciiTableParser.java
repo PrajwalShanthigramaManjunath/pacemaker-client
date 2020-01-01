@@ -65,6 +65,7 @@ public class AsciiTableParser extends Parser {
     if (locations != null) {
       if (!locations.isEmpty()) {
         IASCIITableAware asciiTableAware = new CollectionASCIITableAware<Location>(locations,
+            "id",
             "latitude", "longitude");
         System.out.println(ASCIITable.getInstance().getTable(asciiTableAware));
       }

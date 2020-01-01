@@ -32,7 +32,7 @@ public class PacemakerConsoleService {
 
     // Starter Commands
     @Command(description = "Register: Create an account for a new user")
-    public void register(@Param(name = "first name") String firstName,
+    public void registerUser(@Param(name = "first name") String firstName,
                          @Param(name = "last name") String lastName,
                          @Param(name = "email") String email, @Param(name = "password") String password) {
         console.renderUser(paceApi.createUser(firstName, lastName, email, password));
@@ -141,9 +141,7 @@ public class PacemakerConsoleService {
     public void friendActivityReport(@Param(name = "email") String email) {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
-           	console.renderActivities(paceApi.listFriendActivities(email));
-        } else {
-            System.out.println("User is not logged in");
+           	console.renderActivities(paceApi.getFriendActivities(email));
         }
     }
 
@@ -151,7 +149,7 @@ public class PacemakerConsoleService {
     public void follow(@Param(name = "email") String email) {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
-            paceApi.followFriend(user.get().id, email);
+            paceApi.addFriend(user.get().id, email);
         }
     }
 
@@ -164,14 +162,11 @@ public class PacemakerConsoleService {
     }
 
 
-    // Good Commands
-
     @Command(description = "Unfollow Friends: Stop following a friend")
     public void unfollowFriend() {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
-            console.renderUsers(paceApi.deleteFriends(user.get().id));
-            //	.renderActivities(paceApi.getActivities(user.get().id));
+//            console.renderUsers(paceApi.deleteFriends(user.get().id));
         }
     }
 
@@ -180,8 +175,7 @@ public class PacemakerConsoleService {
                               @Param(name = "message") String message) {
         Optional<User> user = Optional.fromNullable(loggedInUser);
         if (user.isPresent()) {
-            console.renderUsers(paceApi.deleteFriends(user.get().id));
-            //	.renderActivities(paceApi.getActivities(user.get().id));
+//            console.renderUsers(paceApi.deleteFriends(user.get().id));
         }
     }
 
@@ -189,25 +183,4 @@ public class PacemakerConsoleService {
     public void listMessages() {
     }
 
-    @Command(description = "Distance Leader Board: list summary distances of all friends, sorted longest to shortest")
-    public void distanceLeaderBoard() {
-    }
-
-    // Excellent Commands
-
-    @Command(description = "Distance Leader Board: distance leader board refined by type")
-    public void distanceLeaderBoardByType(@Param(name = "byType: type") String type) {
-    }
-
-    @Command(description = "Message All Friends: send a message to all friends")
-    public void messageAllFriends(@Param(name = "message") String message) {
-    }
-
-    @Command(description = "Location Leader Board: list sorted summary distances of all friends in named location")
-    public void locationLeaderBoard(@Param(name = "location") String message) {
-    }
-
-    // Outstanding Commands
-
-    // Todo
 }

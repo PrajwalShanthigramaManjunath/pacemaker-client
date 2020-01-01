@@ -13,10 +13,7 @@ public class UserTest {
   PacemakerAPI pacemaker = new PacemakerAPI("http://localhost:7000");
   User homer = new User("homer", "simpson", "homer@simpson.com", "secret");
 
-  @Before
-  public void setup() {
-    pacemaker.deleteUsers();
-  }
+
 
   @After
   public void tearDown() {

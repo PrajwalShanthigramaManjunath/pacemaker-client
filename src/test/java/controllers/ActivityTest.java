@@ -21,7 +21,6 @@ public class ActivityTest {
 
 	@Before
 	public void setup() {
-		pacemaker.deleteUsers();
 		homer = pacemaker.createUser(homer.firstname, homer.lastname, homer.email, homer.password);
 	}
 
@@ -52,14 +51,14 @@ public class ActivityTest {
 		Activity activity = new Activity("sprint", "pub", 4.5);
 		Activity returnedActivity = pacemaker.createActivity(homer.id, activity.type, activity.location, activity.distance);
 		assertNotNull (returnedActivity);
-		pacemaker.deleteActivities(homer.id);
+//		pacemaker.deleteActivities(homer.id);
 		returnedActivity = pacemaker.getActivity(homer.id, returnedActivity.id);
 		assertNull (returnedActivity);
 	}
 
 	@Test
 	public void testCreateActivityWithSingleLocation() {
-		pacemaker.deleteActivities(homer.id);
+//		pacemaker.deleteActivities(homer.id);
 		Activity activity = new Activity("walk", "shop", 2.5);
 		Location location = new Location(12.0, 33.0);
 
@@ -73,7 +72,7 @@ public class ActivityTest {
 	
 	@Test
 	  public void testCreateActivityWithMultipleLocation() {
-	    pacemaker.deleteActivities(homer.id);
+//	    pacemaker.deleteActivities(homer.id);
 	    Activity activity = new Activity("walk", "shop", 2.5);
 	    Activity returnedActivity = pacemaker.createActivity(homer.id, activity.type, activity.location, activity.distance);
 
